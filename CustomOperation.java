@@ -6,11 +6,7 @@ import data.WritableFile;
 import operations.Operation;
 import parser.Interpreter;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public enum CustomOperation implements Operation {
@@ -21,8 +17,13 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, HashMap<String, Float> memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
             System.out.println("Pong!");
+        }
+
+        @Override
+        public String help() {
+            return "Ping - Pong!";
         }
     },
     COS {
@@ -32,8 +33,13 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, HashMap<String, Float> memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles) throws IOException {
-            memory.put((String) instruction[8], (float) Math.cos(Interpreter.getValue(instruction[1], memory)));
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+            memory[(Integer) instruction[8]] = (float) Math.cos(Interpreter.getValue(instruction[1], memory));
+        }
+
+        @Override
+        public String help() {
+            return "The cosine of arg0";
         }
     },
     SIN {
@@ -43,8 +49,13 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, HashMap<String, Float> memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles) throws IOException {
-            memory.put((String) instruction[8], (float) Math.sin(Interpreter.getValue(instruction[1], memory)));
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+            memory[(Integer) instruction[8]] =  (float) Math.sin(Interpreter.getValue(instruction[1], memory));
+        }
+
+        @Override
+        public String help() {
+            return "The sine of arg0";
         }
     },
     ABS {
@@ -54,8 +65,13 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, HashMap<String, Float> memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles) throws IOException {
-            memory.put((String) instruction[8], (float) Math.abs(Interpreter.getValue(instruction[1], memory)));
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+            memory[(Integer) instruction[8]] = (float) Math.abs(Interpreter.getValue(instruction[1], memory));
+        }
+
+        @Override
+        public String help() {
+            return "The absolute value of arg0";
         }
     },
     LOG {
@@ -65,8 +81,13 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, HashMap<String, Float> memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles) throws IOException {
-            memory.put((String) instruction[8], (float) Math.log(Interpreter.getValue(instruction[1], memory)));
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+            memory[(Integer) instruction[8]] = (float) Math.log(Interpreter.getValue(instruction[1], memory));
+        }
+
+        @Override
+        public String help() {
+            return "The logarithm of arg0";
         }
     },
     POW {
@@ -76,8 +97,13 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, HashMap<String, Float> memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles) throws IOException {
-            memory.put((String) instruction[8], (float) Math.pow(Interpreter.getValue(instruction[1], memory), Interpreter.getValue(instruction[2], memory)));
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+            memory[(Integer) instruction[8]] = (float) Math.pow(Interpreter.getValue(instruction[1], memory), Interpreter.getValue(instruction[2], memory));
+        }
+
+        @Override
+        public String help() {
+            return "arg0 raised to the power of arg1";
         }
     },
     ROUND {
@@ -87,37 +113,27 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, HashMap<String, Float> memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles) throws IOException {
-            memory.put((String) instruction[8], (float) Math.round(Interpreter.getValue(instruction[1], memory)));
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+            memory[(Integer) instruction[8]] = (float) Math.round(Interpreter.getValue(instruction[1], memory));
+        }
+
+        @Override
+        public String help() {
+            return "Rounds the result to the closest integer";
         }
     };
 
     public CustomOperation value(String str) {
-        switch (str) {
-            case "PING":
-                return PING;
-
-            case "COS":
-                return COS;
-
-            case "SIN":
-                return SIN;
-
-            case "ABS":
-                return ABS;
-
-            case "ROUND":
-                return ROUND;
-
-            case "POW":
-                return POW;
-
-            case "LOG":
-                return LOG;
-
-            default:
-                return null;
-        }
+        return switch (str) {
+            case "PING" -> PING;
+            case "COS" -> COS;
+            case "SIN" -> SIN;
+            case "ABS" -> ABS;
+            case "ROUND" -> ROUND;
+            case "POW" -> POW;
+            case "LOG" -> LOG;
+            default -> null;
+        };
     }
 
     CustomOperation() {
