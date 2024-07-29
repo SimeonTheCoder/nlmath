@@ -9,7 +9,7 @@ import parser.Interpreter;
 import java.io.IOException;
 import java.util.HashMap;
 
-public enum CustomOperation implements Operation {
+public enum nlmath implements Operation {
     PING {
         @Override
         public ObjType[] getArguments() {
@@ -123,7 +123,7 @@ public enum CustomOperation implements Operation {
         }
     };
 
-    public CustomOperation value(String str) {
+    public nlmath value(String str) {
         return switch (str) {
             case "PING" -> PING;
             case "COS" -> COS;
@@ -136,6 +136,6 @@ public enum CustomOperation implements Operation {
         };
     }
 
-    CustomOperation() {
+    nlmath() {
     }
 }
