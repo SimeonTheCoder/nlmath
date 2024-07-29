@@ -17,7 +17,7 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays, String[] stringTable) throws IOException {
             System.out.println("Pong!");
         }
 
@@ -33,7 +33,7 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays, String[] stringTable) throws IOException {
             memory[(Integer) instruction[8]] = (float) Math.cos(Interpreter.getValue(instruction[1], memory));
         }
 
@@ -49,7 +49,7 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays, String[] stringTable) throws IOException {
             memory[(Integer) instruction[8]] =  (float) Math.sin(Interpreter.getValue(instruction[1], memory));
         }
 
@@ -65,7 +65,7 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays, String[] stringTable) throws IOException {
             memory[(Integer) instruction[8]] = (float) Math.abs(Interpreter.getValue(instruction[1], memory));
         }
 
@@ -81,7 +81,7 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays, String[] stringTable) throws IOException {
             memory[(Integer) instruction[8]] = (float) Math.log(Interpreter.getValue(instruction[1], memory));
         }
 
@@ -97,7 +97,7 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays, String[] stringTable) throws IOException {
             memory[(Integer) instruction[8]] = (float) Math.pow(Interpreter.getValue(instruction[1], memory), Interpreter.getValue(instruction[2], memory));
         }
 
@@ -113,7 +113,7 @@ public enum CustomOperation implements Operation {
         }
 
         @Override
-        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays) throws IOException {
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, data.Array> arrays, String[] stringTable) throws IOException {
             memory[(Integer) instruction[8]] = (float) Math.round(Interpreter.getValue(instruction[1], memory));
         }
 
