@@ -1,5 +1,6 @@
 package build;
 
+import data.Array;
 import data.ObjType;
 import data.ReadableFile;
 import data.WritableFile;
@@ -7,6 +8,7 @@ import operations.Operation;
 import parser.Interpreter;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 public enum nlmath implements Operation {
@@ -120,6 +122,22 @@ public enum nlmath implements Operation {
         @Override
         public String help() {
             return "Rounds the result to the closest integer";
+        }
+    },
+    SQRT {
+        @Override
+        public ObjType[] getArguments() {
+            return new ObjType[] {ObjType.NUMBER};
+        }
+
+        @Override
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, Array> arrays, String[] stringTable) throws IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+            memory[(Integer) instruction[8]] = (float) Math.sqrt(Interpreter.getValue(instruction[1], memory));
+        }
+
+        @Override
+        public String help() {
+            return "Calculates the square root of arg0";
         }
     };
 
