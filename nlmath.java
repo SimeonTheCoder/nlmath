@@ -139,6 +139,22 @@ public enum nlmath implements Operation {
         public String help() {
             return "Calculates the square root of arg0";
         }
+    },
+    EXP {
+        @Override
+        public ObjType[] getArguments() {
+            return new ObjType[] {ObjType.NUMBER};
+        }
+
+        @Override
+        public void execute(Object[] instruction, float[] memory, HashMap<String, WritableFile> writableFiles, HashMap<String, ReadableFile> readableFiles, HashMap<String, Array> arrays, String[] stringTable) throws IOException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
+            memory[(Integer) instruction[8]] = (float) Math.exp(Interpreter.getValue(instruction[1], memory));
+        }
+
+        @Override
+        public String help() {
+            return "Returns e to the power of arg0";
+        }
     };
 
     public nlmath value(String str) {
@@ -150,6 +166,7 @@ public enum nlmath implements Operation {
             case "ROUND" -> ROUND;
             case "POW" -> POW;
             case "LOG" -> LOG;
+            case "EXP" -> EXP;
             default -> null;
         };
     }
